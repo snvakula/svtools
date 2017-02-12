@@ -1,0 +1,15 @@
+NAME="srv1"
+GROUP="Group-2"
+URL="backups@srv1.local"
+PORT="22"
+METHOD="ssh"
+ITERATIONS=4
+ARTIFACTS="/mnt/backups/srv1/Iteration-1"
+
+read -r -d '' COMMAND << EOF
+  # echo
+EOF
+
+read -r -d '' COMMANDAFTER << EOF
+  # echo
+EOF

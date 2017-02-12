@@ -1,0 +1,2 @@
+# Every Saturday at 1:15
+15 1 *  *  sat  root  /srv/rbackups/rbackups.sh

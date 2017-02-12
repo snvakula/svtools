@@ -1,0 +1,27 @@
+NAME="db1-us1"
+GROUP="Group-1"
+URL="sv@db1-us1-pub-glaoi4at.aspanta.com"
+PORT="22"
+METHOD="ssh"
+ITERATIONS=4
+ARTIFACTS="/mnt/resource/backups"
+
+read -r -d '' COMMAND << EOF
+  sudo rm -rf /mnt/resource/backups
+  sudo mkdir -p /mnt/resource/backups
+  sudo chown sv.root /mnt/resource/backups
+  sudo chmod 770 /mnt/resource/backups
+  cd /mnt/resource/backups
+  rpm -qa --qf "%{name}\n" > rpmlist-brief
+  rpm -qa --qf "%{name}-%{version}-%{release}.%{arch}\n" > rpmlist-full
+  tar czf db1-us1.backup-rpmlist.tar.gz rpmlist-brief rpmlist-full
+  rm rpmlist-brief rpmlist-full
+  sudo mysqldump --all-databases --events --routines --triggers | gzip > db1-us1.backup-mysqldb.sql.gz
+  cd /
+  sudo tar czf /mnt/resource/backups/db1-us1.backup-configs.tar.gz etc
+  sudo chown -R sv.root /mnt/resource/backups
+EOF
+
+read -r -d '' COMMANDAFTER << EOF
+  sudo rm -rf /mnt/resource/backups
+EOF

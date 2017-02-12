@@ -1,0 +1,8 @@
+/var/log/rbackups.log {
+	weekly
+	rotate 12
+	compress
+	delaycompress
+	missingok
+	notifempty
+}
